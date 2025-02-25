@@ -34,4 +34,15 @@ io.on("connection", (client) => {
     bands.voteBand(payload["id"]);
     io.emit("active-bands", bands.getBands());
   });
+
+  client.on("add-band", (payload) => {
+    const newBand = new Band(payload["name"]);
+    bands.addBand(newBand);
+    io.emit("active-bands", bands.getBands());
+  });
+
+  client.on("erase-band", (payload) => {
+    console.log("band erased");
+    bands.addBand(payload["id"]);
+  });
 });
